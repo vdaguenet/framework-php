@@ -33,22 +33,19 @@ class Rooter
 		return self::$instance;
 	}
 
-	public function execute() 
+	public function execute( Request $request ) 
 	{
 		// Vérification de l'éxistence du parmètre controller.
-		if (!isset($_GET['controller'])) {
-			throw new \RuntimeException('Error : $_GET[\'controller\'] not difined.');
+		if (false === $request->get('controller', false)) { // === car on veut false mais pas null et que en php null = false.
+			throw new \RuntimeException('Error : parameter controller not difined.');
 		}
 
 		// Définit le nom du controlleur et l'instancie.
-		$controllerName = '\\Controller\\'. $_GET['controller'] .'Controller';
+		$controllerName = '\\Controller\\'. $request->get('controller') .'Controller';
 		$controller = new $controllerName();
 
 		// Définit la page appelée. Index si elle n'est pas définit dans les paramètres.
-		$pageName = 'index';
-		if (isset($_GET['page'])) {
-			$pageName = $_GET['page'];
-		}
+		$pageName = $request->get('page', 'index');
 
 		return $controller->$pageName();
 	}
