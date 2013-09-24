@@ -1,4 +1,4 @@
 <?php
 spl_autoload_register();
 
-Framework\Rooter::getInstance()->execute();
+echo Framework\Rooter::getInstance()->execute();

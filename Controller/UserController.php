@@ -11,8 +11,11 @@ use Framework\Controller;
 
 class UserController extends Controller
 {
+	// Retourne la vue HTML correspondante.
 	public function index()
 	{
-		echo 'toto';
+		return $this->render('User/index', array(
+			'pseudo' => 'toto' 
+			));
 	}
 }
