@@ -2,8 +2,13 @@
 
 namespace Framework;
 
+/**
+* Classe Rooter
+* Sert à "récupérer" la request et retourne le controller et la page correspondante.
+* Utilise le design pattern Singleton
+**/
+ 
 class Rooter 
-// Singleton
 {
 	private static $instance;
 
@@ -30,9 +35,21 @@ class Rooter
 
 	public function execute() 
 	{
+		// Vérification de l'éxistence du parmètre controller.
 		if (!isset($_GET['controller'])) {
-			throw new \RuntimeException('Error : $_GET[\'controll   ser\'] not difined.');
-			
+			throw new \RuntimeException('Error : $_GET[\'controller\'] not difined.');
 		}
+
+		// Définit le nom du controlleur et l'instancie.
+		$controllerName = '\\Controller\\'. $_GET['controller'] .'Controller';
+		$controller = new $controllerName();
+
+		// Définit la page appelée. Index si elle n'est pas définit dans les paramètres.
+		$pageName = 'index';
+		if (isset($_GET['page'])) {
+			$pageName = $_GET['page'];
+		}
+
+		return $controller->$pageName();
 	}
 }
