@@ -27,6 +27,8 @@ class UserController extends Controller
 		if($request->isMethod('POST')) {
 			// traitement si on est en POST
 			$user = new User($request->get('username'), $request->get('password'), $request->get('email'), $request->get('gender'));
+
+			UserDao::save($user);
 		}
 		return $this->render('User/register');
 	}

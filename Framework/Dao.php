@@ -2,10 +2,13 @@
 
 namespace Framework;
 
+use Framework\Database\DatabaseFactory;
+
 abstract class Dao 
 {
 	static public function getDatabase()
 	{
-		return new Database\DatabaseFactory()->getDatabase();
+		$dbFactory = new DatabaseFactory();
+		return $dbFactory->getDatabase();
 	}
 }

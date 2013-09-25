@@ -17,11 +17,11 @@ class UserDao extends Dao
 				'gender' => $user->getgender()
 			));*/
 
-		// bindParam fait la même chose que le execute ci-dessus en ajoute le type du paramètre attendu => Plus de sécurité.
-		$stmt->bindParam(':username', $user->getUsername(), \PDO::PARAM_STR);
-		$stmt->bindParam(':email', $user->getEmail(), \PDO::PARAM_STR);
-		$stmt->bindParam(':password', $user->getPassword(), \PDO::PARAM_STR);
-		$stmt->bindParam(':gender', $user->getGender(), \PDO::PARAM_STR);
+		// bindValue fait la même chose que le execute ci-dessus en ajoute le type du paramètre attendu => Plus de sécurité.
+		$stmt->bindValue(':username', $user->getUsername(), \PDO::PARAM_STR);
+		$stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
+		$stmt->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
+		$stmt->bindValue(':gender', $user->getGender(), \PDO::PARAM_STR);
 
 		$stmt->execute();
 	}
