@@ -28,6 +28,6 @@ class Router
 		// Définit la page appelée. Index si elle n'est pas définit dans les paramètres.
 		$pageName = $request->get('page', 'index');
 
-		return $controller->$pageName();
+		return $controller->$pageName( $request );
 	}
 }

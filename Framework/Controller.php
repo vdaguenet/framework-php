@@ -9,7 +9,7 @@ namespace Framework;
 
 abstract class Controller
 {
-	public abstract function index();
+	public abstract function index(Request $request);
 
 	public function render($viewName, $parameters = array()) 
 	{
