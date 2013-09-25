@@ -1,4 +1,7 @@
 <?php
 spl_autoload_register();
 
-echo Framework\Rooter::getInstance()->execute(new Framework\Request());
+$configurator = new Framework\Configurator();
+$configurator->load('config/config.yml');
+
+echo Framework\Router::getInstance()->execute(new Framework\Request());

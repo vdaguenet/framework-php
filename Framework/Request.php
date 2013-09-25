@@ -13,4 +13,9 @@ class Request
 
 		return $_GET[$parameterName];
 	}
+
+	public function connectUser()
+	{
+		$session = $_SESSION['username'];
+	}
 }

@@ -1,0 +1,7 @@
+database:
+  driver: mysql
+  host: localhost
+  port: 8889
+  user: root
+  password: !4NW9uI9
+  name: Framework
