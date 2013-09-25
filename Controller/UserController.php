@@ -11,11 +11,11 @@ use Framework\Controller;
 
 class UserController extends Controller
 {
-	// Retourne la vue HTML correspondante.
+	// Retourne la vue correspondante avec un tableau de paramètres..
 	public function index()
 	{
 		return $this->render('User/index', array(
-			'pseudo' => 'toto' 
+			'pseudo' => 'Toto' 
 			));
 	}
 }
