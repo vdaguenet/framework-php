@@ -7,6 +7,10 @@ use Framework\Dao;
 
 class UserDao extends Dao
 {
+	/**
+	* Insert an user object into table news.
+	* @param User $news
+	**/
 	static public function save( User $user )
 	{
 		$stmt = self::getDatabase()->prepare('INSERT INTO user(username, email, password, gender) VALUES (:username, :email, :password, :gender)'); // stmt = statement
@@ -24,5 +28,33 @@ class UserDao extends Dao
 		$stmt->bindValue(':gender', $user->getGender(), \PDO::PARAM_STR);
 
 		$stmt->execute();
+	}
+
+	/**
+	* Search an user with his username in the database
+	* @param String $username
+	* @return User
+	**/
+	static public function findOneByUsername($username)
+	{
+		$stmt = self::getDatabase()->prepare('
+			SELECT username, email, password, gender 
+			FROM user 
+			WHERE username = :username'
+		);
+
+		$stmt->bindValue(':username', $username, \PDO::PARAM_STR);
+
+		$stmt->execute();
+
+		$data = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+		if (false === $data) {
+			
+			return false;
+		}
+		
+		return new User($data['username'], $data['password'], $data['email'], $data['gender']);
+
 	}
 }

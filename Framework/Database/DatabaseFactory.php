@@ -8,7 +8,10 @@ use Framework\Utils\Singleton;
 class DatabaseFactory
 {
 	use Singleton;
-
+	/**
+	* Create DatabaseDriver in depending on driver parameter in config/config.yml
+	* @return DatabaseDriver
+	**/
 	public function getDatabase()
 	{
 		$databaseConfigurations = Configurator::getInstance()->get('database', false);

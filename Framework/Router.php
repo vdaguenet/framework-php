@@ -18,11 +18,15 @@ class Router
 	{
 		// Vérification de l'éxistence du parmètre controller.
 		if (false === $request->get('controller', false)) { // === car on veut false mais pas null et que en php null = false.
-			throw new \RuntimeException('Error : parameter controller not difined.');
+			
+			$controllerName = '\\Controller\\DefaultController'; // Controleur par défaut si il n'est pas passé en paramètre
+
+			//throw new \RuntimeException('Error : parameter controller not difined.');
+		} else {
+			// Définit le nom du controlleur et l'instancie.
+			$controllerName = '\\Controller\\'. $request->get('controller') .'Controller';
 		}
 
-		// Définit le nom du controlleur et l'instancie.
-		$controllerName = '\\Controller\\'. $request->get('controller') .'Controller';
 		$controller = new $controllerName();
 
 		// Définit la page appelée. Index si elle n'est pas définit dans les paramètres.
