@@ -33,6 +33,7 @@ class UserController extends Controller
 	**/
 	public function register(Request $request)
 	{
+		$msg = '';
 		if($request->isMethod('POST')) {
 			// traitement si on est en POST
 			$password = Crypt::encrypt($request->get('password'));
@@ -40,9 +41,16 @@ class UserController extends Controller
 
 			$user = new User($request->get('username'), $password, $request->get('email'), $request->get('gender'));
 
-			UserDao::save($user);
+			if(UserDao::save($user)) {
+				$msg = 'Ajout fait.';
+			}
+			else {
+				$msg = ' Ce nom d\'utilisateur est déjà pris.';
+			}
 		}
-		return $this->render('User/register');
+		return $this->render('User/register', array(
+				'msg' => $msg
+			));
 	}
 
 	/**
@@ -93,5 +101,26 @@ class UserController extends Controller
 		$request->disconnectUser();
 
 		return $this->index($request);
+	}
+
+	public function editEmail(Request $request)
+	{
+		$msg = '';
+
+		if($request->getUser() instanceof User) {
+			// Utilisateur connecté
+
+			if($request->isMethod('POST')) {
+				$user = UserDao::findOneByUsername($request->getUser()->getUsername());
+				UserDao::updateEmail($request->get('newEmail'), $user);
+				$msg = 'Modification effectuée ';
+			}
+
+			return $this->render('User/edit', array(
+					'msg' => $msg
+				));
+		}
+
+		return $this->login($request);
 	}
 }

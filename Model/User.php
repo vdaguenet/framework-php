@@ -37,6 +37,11 @@ class User
 		return $this->email;
 	}
 
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+
 	public function getGender()
 	{
 		return $this->gender;

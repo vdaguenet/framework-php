@@ -4,13 +4,13 @@
 		<title>Le framework php | Index</title>
 	</head>
 	<body>
-		<p>Salut ! Tu es sur l'index <?php echo $pseudo; ?> <a href="?controller=News&page=index">Partie des news</a></p>
+		<p>Salut ! Tu es sur l'index <?php echo $pseudo; ?> ! Voir la <a href="?controller=News&page=index">Partie des news</a></p>
 
 		<p>
 			<?php 
 			if('' != $pseudo) {
 			?>
-				<a href="?controller=User&page=logout">Se déconnecter</a>
+				<a href="?controller=User&page=logout">Se déconnecter</a> ou <a href="?controller=User&page=editEmail">Changer d'email</a>
 			<?php
 			}
 			else {

@@ -31,7 +31,16 @@ class NewsController extends Controller
 	public function newsList(Request $request)
 	{
 		$newsList = NewsDao::listAllNews();
+		$msg = '';
+
+		if($request->isMethod('POST')) {
+			// traitement si on est en POST
+			NewsDao::deleteNewsById($request->get('id'));
+			$msg = 'News supprimée. Le changement sera visible prochainement.';
+		}
+
 		return $this->render('News/newsList', array(
+				'msg' => $msg,
 				'newsList' => $newsList
 			));
 	}

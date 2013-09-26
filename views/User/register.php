@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<h1>S'enregister</h1>
- 
+ 		<h2><?php echo $msg; ?></h2>
 		<form method="POST">
 		  <p><input name="username" type="text" placeholder="Identifiant" /></p>
 		  <p><input name="password" type="text" placeholder="Mot de passe" /></p>

@@ -10,9 +10,13 @@ class UserDao extends Dao
 	/**
 	* Insert an user object into table news.
 	* @param User $news
+	* @return boolean
 	**/
 	static public function save( User $user )
 	{
+		if (self::findOneByUsername($user->getUsername())) {
+			return false;
+		}
 		$stmt = self::getDatabase()->prepare('INSERT INTO user(username, email, password, gender) VALUES (:username, :email, :password, :gender)'); // stmt = statement
 		/*$stmt->execute(array(
 				'username' => $user->getUsername(),
@@ -26,6 +30,23 @@ class UserDao extends Dao
 		$stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
 		$stmt->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
 		$stmt->bindValue(':gender', $user->getGender(), \PDO::PARAM_STR);
+
+		$stmt->execute();
+
+		return true;
+	}
+
+	/**
+	* Change the email adress in database
+	**/
+	static public function updateEmail($newEmail, User $user)
+	{
+		$user->setEmail($newEmail);
+
+		$stmt = self::getDatabase()->prepare('UPDATE user SET email = :email WHERE username = :username');
+
+		$stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
+		$stmt->bindValue(':username', $user->getUsername(), \PDO::PARAM_STR);
 
 		$stmt->execute();
 	}
