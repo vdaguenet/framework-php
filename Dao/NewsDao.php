@@ -57,6 +57,9 @@ class NewsDao extends Dao
 	**/
 	static public function deleteNewsById($id)
 	{
+		/* CORRECTION :
+		* - Vérifier l'existence de la News au préalable 
+		*/
 		$stmt = self::getDatabase()->prepare('DELETE FROM news WHERE id = :id');
 
 		$stmt->bindValue(':id', $id, \PDO::PARAM_INT);

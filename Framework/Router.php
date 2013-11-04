@@ -17,6 +17,15 @@ class Router
 	public function execute( Request $request ) 
 	{
 		// Vérification de l'éxistence du parmètre controller.
+
+		/* CORRECTION :
+		* if ($request->get('controller', false))
+		* {
+		*	controlleur appelé
+		* } else {
+		* 	controlleur default
+		* }
+		*/
 		if (false === $request->get('controller', false)) { // === car on veut false mais pas null et que en php null = false.
 			
 			$controllerName = '\\Controller\\DefaultController'; // Controleur par défaut si il n'est pas passé en paramètre
