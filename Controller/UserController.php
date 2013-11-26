@@ -21,8 +21,15 @@ class UserController extends Controller
 	**/
 	public function index(Request $request)
 	{
+		if (null != $request->getUser()) {
+      		$name = $request->getUser()->getUsername();
+    	}
+   		else {
+      		$name = 'Anonymous';
+    	}
+
 		return $this->render('User/index', array(
-				'pseudo' => ''
+				'pseudo' => $name
 			));
 	}
 
@@ -33,23 +40,26 @@ class UserController extends Controller
 	**/
 	public function register(Request $request)
 	{
-		$msg = '';
-		if($request->isMethod('POST')) {
-			// traitement si on est en POST
-			$password = Crypt::encrypt($request->get('password'));
-			// Là il faudrer salt le password. Par manque de temps cela ne sera pas fait.
+		$error = null;
 
-			$user = new User($request->get('username'), $password, $request->get('email'), $request->get('gender'));
+		if ($request->isMethod('POST')) {
+	      	if ('' != $request->get('username', '') && '' != $request->get('password', '') && '' != $request->get('email', '')) {
+				$user = UserDao::findOneByUsername($request->get('username'));
+				if (null != $user) {
+					$error = "Le nom d'utilisateur est déjà réservé";
+				}
+				else {
+					UserDao::save(new User($request->get('username'), Crypt::encrypt($request->get('password')), $request->get('email'), $request->get('gender')));
 
-			if(UserDao::save($user)) {
-				$msg = 'Ajout fait.';
+					return $this->redirect('User', 'login');
+				}
+			} else {
+				$error = 'Il manque des données !';
 			}
-			else {
-				$msg = ' Ce nom d\'utilisateur est déjà pris.';
-			}
-		}
+	    }
+
 		return $this->render('User/register', array(
-				'msg' => $msg
+				'msg' => $error
 			));
 	}
 
@@ -61,6 +71,10 @@ class UserController extends Controller
 	public function login(Request $request)
 	{
 		$error = null;
+
+		if (null != $request->getUser()) {
+      		return $this->redirect('User');
+    	}
 
 		if($request->isMethod('POST')) {
 			$user = UserDao::findOneByUsername($request->get('username'));
@@ -105,22 +119,24 @@ class UserController extends Controller
 
 	public function editEmail(Request $request)
 	{
-		$msg = '';
-
-		if($request->getUser() instanceof User) {
-			// Utilisateur connecté
-
-			if($request->isMethod('POST')) {
-				$user = UserDao::findOneByUsername($request->getUser()->getUsername());
-				UserDao::updateEmail($request->get('newEmail'), $user);
-				$msg = 'Modification effectuée ';
-			}
-
-			return $this->render('User/edit', array(
-					'msg' => $msg
-				));
-		}
-
-		return $this->login($request);
+		 if (null == $request->getUser()) {
+      return $this->redirect('User', 'login');
+    }
+    
+    $error = null;
+    if ($request->isMethod('POST')) {
+      if ('' == $request->get('email', '')) {
+        $error = 'Il manque des données !';
+      }
+      else {
+        $request->getUser()->setEmail($request->get('email'));
+        UserDao::update($request->getUser());
+      }
+    }
+    
+    return $this->render('User/update', array(
+      'error' => $error,
+      'user'  => $request->getUser()
+    ));
 	}
 }

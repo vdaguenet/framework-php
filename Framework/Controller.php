@@ -3,10 +3,9 @@
 namespace Framework;
 
 /**
-* Classe abstraite Controller
-* Tous les controlleurs implémenteront cette classe
+* Abstract class Controller
+* Every controllers will implement this class
 **/
-
 abstract class Controller
 {
 	private $router;
@@ -18,29 +17,34 @@ abstract class Controller
 
 	public abstract function index(Request $request);
 
+	/**
+	* @param view path
+	* @return buffer content
+	*/
 	public function render($viewName, $parameters = array()) 
 	{
-		// Création d'un buffer. Toute l'application y sera contenue. 
+		// Buffer start 
 		ob_start();
 
-		// Créer les variables dynamiquement.
-		// Exemple : $key vaut monPseudo donc $$key vaut $monPseudo. Puis on donne une valeur à $monPseudo.
+		// Create variables
 		foreach ($parameters as $key => $value) {
 			$$key = $value;
 		}
 		
-		// Lis le contenu du fichier passé en paramètre
+		// Include the view
 		include(__DIR__ . '/../views/' . $viewName .'.php');
 
-		// Récupère le contenu du buffer
+		// Stock buffer content before cleaning
 		$rendering = ob_get_contents();
-		
-		// On arrête la mise dans le buffer et on le vide.
 		ob_end_clean();
 
 		return $rendering;
 	}
 
+	/**
+	* @param $controller Controller to call
+	* @param $page Page to call. Index if the parameter is not set
+	*/
 	public function redirect($controller, $page = 'index')
 	{
 		$baseUrl = $this->router->getBaseUrl();

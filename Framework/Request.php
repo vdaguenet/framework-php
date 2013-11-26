@@ -6,8 +6,8 @@ use Model\User;
 use Dao\UserDao;
 
 /**
-* Classe Request
-* Gère la connection et la déconnection de l'utilisateur.
+* Class Request
+* Use for user connection / disconection
 **/
 class Request
 {
@@ -19,7 +19,7 @@ class Request
 	}
 
 	/**
-	* Cherche un paramètre dans les variables globales.
+	* Search parameter in superglobals variables 
 	* @return value of $_POST or $_GET or null
 	**/
 	public function get($parameterName, $default = null) // $default est une valeur par défaut au cas où le premier paramètre n'existe pas
@@ -35,7 +35,7 @@ class Request
 	}
 
 	/**
-	* Enregistre le nom de l'utilisateur en session
+	* Set $user with the current connected user
 	**/
 	private function connectUser()
 	{
@@ -46,11 +46,6 @@ class Request
     	}	
 	}
 
-	
-
-	/**
-	* Supprime la connection de l'utilisateur
-	**/
 	public function disconnectUser()
 	{
 		unset($_SESSION['user']);
@@ -61,8 +56,9 @@ class Request
   	{
     	return isset($_SESSION['current_user']);
   	}
+
 	/**
-	* Permet de connaitre la methode utilisée dans le header http 
+	* Method to know the method used in the http header 
 	* @return boolean
 	**/
 	public function isMethod($method)

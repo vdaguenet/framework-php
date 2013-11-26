@@ -2,21 +2,27 @@
 
 namespace Framework;
 
-use Framework\Utils\Singleton; // Import du trait Singleton
+use Framework\Utils\Singleton;
 
 class Configurator
 {
-	use Singleton;	// Utilisation du trait
+	use Singleton;
 
 	private $configurations;
 
+	/**
+	* Read the YAML configuration file
+	*/
 	public function load($filepath)
 	{
 		include(__DIR__ . '/../vendors/spyc.php');
 
-		$this->configurations = \Spyc::YAMLLoad(__DIR__ . '/../'. $filepath); // Lecture et enregistrement du fichier YAML.
+		$this->configurations = \Spyc::YAMLLoad(__DIR__ . '/../'. $filepath);
 	}
 
+	/**
+	* Get configuration attribute from YAML file
+	*/
 	public function get($configuration)
 	{
 		if (!isset($this->configurations[$configuration])) {

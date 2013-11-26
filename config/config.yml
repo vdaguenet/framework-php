@@ -1,7 +1,7 @@
 database:
-  driver: dbDriver
-  host: dbHost
-  port: dPort
-  user: userName
-  password: userPassword
-  name: dbName
+  driver: mysql
+  host: localhost
+  port: 8889
+  user: root
+  password: !4NW9uI9
+  name: Framework
