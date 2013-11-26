@@ -4,6 +4,8 @@ namespace Model;
 
 class User
 {
+	private $modifiedColumns = array();
+
 	private $username;
 	private $password;
 	private $email;
@@ -40,6 +42,8 @@ class User
 	public function setEmail($email)
 	{
 		$this->email = $email;
+
+		$this->modifiedColumns[] = 'email';
 	}
 
 	public function getGender()
@@ -54,5 +58,17 @@ class User
 		} else {
 			$this->gender = $gender;
 		}
+
+		$this->modifiedColumns[] = 'gender';
+	}
+
+	public function getModifiedColumns()
+	{
+		return $this->modifiedColumns;
+	}
+
+	public function flushColumns()
+	{
+		$this->modifiedColumns = array();
 	}
 }

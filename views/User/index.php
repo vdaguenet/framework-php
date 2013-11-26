@@ -1,24 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Le framework php | Index</title>
-	</head>
-	<body>
-		<p>Salut ! Tu es sur l'index <?php echo $pseudo; ?> ! Voir la <a href="?controller=News&page=index">Partie des news</a></p>
+Hey, je suis <strong><?php echo $name; ?></strong> !
 
-		<p>
-			<?php 
-			if('' != $pseudo) {
-			?>
-				<a href="?controller=User&page=logout">Se d√©connecter</a> ou <a href="?controller=User&page=editEmail">Changer d'email</a>
-			<?php
-			}
-			else {
-			?>
-				<a href="?controller=User&page=login">Se connecter</a> ou <a href="?controller=User&page=register">S'identifier</a>
-			<?php
-			}
-			?>
-		</p>
-	</body>
-<html>
+<p />
+
+<a href="index.php?controller=User&page=disconnect">DÈconnexion</a> - <a href="index.php?controller=User&page=login">Login</a> - <a href="index.php?controller=User&page=register">S'enregister</a> - <a href="index.php?controller=User&page=update">Mettre ‡ jour son email</a><br />
+<a href="index.php?controller=News">Voir les news</a>

@@ -24,8 +24,7 @@ class Router
 			$controllerName = '\\Controller\\DefaultController';
 		}
 
-		$controller = new $controllerName();
-
+		$controller = new $controllerName($this);
 		// Définit la page appelée. Index si elle n'est pas définit dans les paramètres.
 		$pageName = $request->get('page', 'index');
 

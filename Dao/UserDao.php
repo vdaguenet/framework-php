@@ -39,19 +39,22 @@ class UserDao extends Dao
 	/**
 	* Change the email adress in database
 	**/
-	static public function updateEmail($newEmail, User $user)
+	static public function update(User $user)
 	{
-		/* CORRECTION :
-		* - Vérifier l'existence du User au préalable 
-		*/
-		$user->setEmail($newEmail);
+		$modifiedColumns = $user->getModifiedColumns();
+		$query = 'UPDATE user ';
+		$parameters = array();
 
-		$stmt = self::getDatabase()->prepare('UPDATE user SET email = :email WHERE username = :username');
+		foreach ($modifiedColumns as $column) {
+			$query .= 'SET ' . $column . ' = ?, ';
+			$methodName = 'get' . $column;
+			$parameters[] = $user->$methodName();
+		}
 
-		$stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
-		$stmt->bindValue(':username', $user->getUsername(), \PDO::PARAM_STR);
+		$query = substr($query, 0, -2);
 
-		$stmt->execute();
+		$stmt = self::getDatabase()->prepare($query);
+		$stmt->execute($parameters);
 	}
 
 	/**

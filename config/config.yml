@@ -1,7 +1,7 @@
 database:
   driver: dbDriver
   host: dbHost
-  port: dPort
-  user: userName
-  password: userPassword
+  port: dbPort
+  user: dbUser
+  password: dbUserPassword
   name: dbName
