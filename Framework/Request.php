@@ -15,9 +15,7 @@ class Request
 
 	public function __construct()
 	{
-		if (isset($_SESSION['user'])) {
-			$this->connectUserSession();
-		}
+		$this->connectUser();
 	}
 
 	/**
@@ -27,12 +25,9 @@ class Request
 	public function get($parameterName, $default = null) // $default est une valeur par défaut au cas où le premier paramètre n'existe pas
 	{
 		if (isset($_POST[$parameterName])) {
-			
 			return $_POST[$parameterName];
 		}
-
 		if (isset($_GET[$parameterName]) ) {
-			
 			return $_GET[$parameterName];
 		}
 		
@@ -44,18 +39,14 @@ class Request
 	**/
 	private function connectUser()
 	{
-		$_SESSION['user'] = $this->getUser()->getUsername();
+		if (!$this->isUserConnected()) {
+      		$this->user = null;
+    	} else {
+      		$this->user = UserDao::findOneByUsername($_SESSION['current_user']);
+    	}	
 	}
 
-	/**
-	* Enregistre l'utilisateur ( dont on connait le nom dans la variable session ) dans l'attribut $user
-	**/
-	private function connectUserSession()
-	{
-		if (isset($_SESSION['user'])) {
-			$this->user = UserDao::findOneByUsername($_SESSION['user']);
-		}
-	}
+	
 
 	/**
 	* Supprime la connection de l'utilisateur
@@ -66,13 +57,17 @@ class Request
 		$this->user = null;
 	}
 
+	private function isUserConnected()
+  	{
+    	return isset($_SESSION['current_user']);
+  	}
 	/**
 	* Permet de connaitre la methode utilisée dans le header http 
 	* @return boolean
 	**/
-	public function isMethod($methodname)
+	public function isMethod($method)
 	{
-		return $_SERVER['REQUEST_METHOD'] == $methodname;
+		return $_SERVER['REQUEST_METHOD'] == $method;
 	}
 
 	/**
@@ -89,6 +84,6 @@ class Request
 	public function setUser( User $user)
 	{
 		$this->user = $user;
-		$this->connectUser();
+		$_SESSION['current_user'] = $user->getUsername();
 	}
 }

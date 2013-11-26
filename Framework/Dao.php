@@ -6,9 +6,8 @@ use Framework\Database\DatabaseFactory;
 
 abstract class Dao 
 {
-	static public function getDatabase()
+	protected static function getDatabase()
 	{
-		$dbFactory = new DatabaseFactory();
-		return $dbFactory->getDatabase();
+		return DatabaseFactory::getInstance()->getDatabase();
 	}
 }

@@ -9,6 +9,13 @@ namespace Framework;
 
 abstract class Controller
 {
+	private $router;
+
+	public function __construct(Router $router)
+	{
+		$this->router = $router;
+	}
+
 	public abstract function index(Request $request);
 
 	public function render($viewName, $parameters = array()) 
@@ -32,6 +39,17 @@ abstract class Controller
 		ob_end_clean();
 
 		return $rendering;
-		
+	}
+
+	public function redirect($controller, $page = 'index')
+	{
+		$baseUrl = $this->router->getBaseUrl();
+
+		header('Location: ' . $baseUrl . '?' . http_build_query(array(
+			'controller' => $controller,
+			'page' => $page
+		)));
+
+		die;
 	}
 }

@@ -17,13 +17,12 @@ class Configurator
 		$this->configurations = \Spyc::YAMLLoad(__DIR__ . '/../'. $filepath); // Lecture et enregistrement du fichier YAML.
 	}
 
-	public function get($parameterName, $defaultValue = null) // $default est une valeur par défaut au cas où le premier paramètre n'existe pas
+	public function get($configuration)
 	{
-		if (!isset($this->configurations[$parameterName])) {
-			
-			return $defaultValue;
+		if (!isset($this->configurations[$configuration])) {
+			throw new \InvalidArgumentException('The configuration with name : ' . $configuration . ' was not found !');
 		}
 
-		return $this->configurations[$parameterName];
+		return $this->configurations[$configuration];
 	}
 }
