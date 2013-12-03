@@ -45,7 +45,7 @@ abstract class Controller
 	* @param $controller Controller to call
 	* @param $page Page to call. Index if the parameter is not set
 	*/
-	public function redirect($controller, $page = 'index')
+	/*public function redirect($controller, $page = 'index')
 	{
 		$baseUrl = $this->router->getBaseUrl();
 
@@ -53,6 +53,15 @@ abstract class Controller
 			'controller' => $controller,
 			'page' => $page
 		)));
+
+		die;
+	}*/
+
+	public function redirect($controller, $page = 'index')
+	{
+		$baseUrl = $this->router->getBaseUrl();
+
+		header('Location: ' . $baseUrl . '?/' . $controller . '/' . $page);
 
 		die;
 	}
