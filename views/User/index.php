@@ -2,5 +2,5 @@ Hey, je suis <strong><?php echo $name; ?></strong> !
 
 <p />
 
-<a href="index.php?controller=User&page=disconnect">Déconnexion</a> - <a href="index.php?controller=User&page=login">Login</a> - <a href="index.php?controller=User&page=register">S'enregister</a> - <a href="index.php?controller=User&page=update">Mettre à jour son email</a><br />
-<a href="index.php?controller=News">Voir les news</a>
+<a href="?/User/disconnect">Déconnexion</a> - <a href="?/User/login">Login</a> - <a href="?/User/register">S'enregister</a> - <a href="?/User/update">Mettre à jour son email</a><br />
+<a href="?/News">Voir les news</a>
