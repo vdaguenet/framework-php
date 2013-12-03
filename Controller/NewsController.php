@@ -63,6 +63,6 @@ class NewsController extends Controller
 			return $this->render('News/add');
 		}
 
-		header('Location: ?controller=User&page=login');
+		header('Location: ?/User/login');
 	}
 }
