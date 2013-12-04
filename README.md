@@ -5,6 +5,7 @@ Project started during formation with [Sylvain Lorinet](https://github.com/Divi)
 - Bases of the framework
 - Simple MVC application for example.
 
-## Personal version (TODO)
+## Personal version
 - Add URL rewriting
-- Complete the application
+- Add an ORM (TODO)
+- Complete the application (TODO)
