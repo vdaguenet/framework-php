@@ -33,13 +33,18 @@ class Router
 
 	public function execute( Request $request ) 
 	{
-		$uri = explode('/', $_SERVER['REQUEST_URI']);
-		if(isset($uri[3])) {
-			$controllerURL = $uri[3];
+		$url = explode('?', $_SERVER['REQUEST_URI']);
+
+		if (isset($url[1])) {
+			$uri = explode('/', $url[1]);
+		}
+		
+		if(isset($uri[1])) {
+			$controllerURL = $uri[1];
 		}
 		// Définit la page appelée. Index si elle n'est pas définit dans les paramètres.
-		if(isset($uri[4])) {
-			$page = $uri[4];
+		if(isset($uri[2])) {
+			$page = $uri[2];
 		} else {
 			$page = 'index';
 		}
