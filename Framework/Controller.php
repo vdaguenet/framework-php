@@ -32,7 +32,8 @@ abstract class Controller
 		}
 		
 		// Include the view
-		include(__DIR__ . '/../views/' . $viewName .'.php');
+		//include(__DIR__ . '/../views/' . $viewName .'.php');
+		include(__DIR__ . '/../web/views/layout.php');
 
 		// Stock buffer content before cleaning
 		$rendering = ob_get_contents();
