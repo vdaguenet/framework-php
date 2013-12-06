@@ -7,5 +7,13 @@ Project started during formation with [Sylvain Lorinet](https://github.com/Divi)
 
 ## Personal version
 - Add URL rewriting
+- Use HTML5 Boilerplate for the views
+- News :
+-- Edit (TODO)
+-- Add category (TODO)
+-- Add image (TODO)
+- User :
+-- Add an avatar (TODO)
+-- Update (TODO)
 - Add an ORM (TODO)
 - Complete the application (TODO)
