@@ -52,18 +52,40 @@ class NewsDao extends Dao
 	}
 
 	/**
+	* @return array of news object.
+	**/
+	static public function findNewsById($id)
+	{
+		$stmt = self::getDatabase()->prepare('
+				SELECT title, author, content
+				FROM news
+				WHERE id = :id
+			');
+		$stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+		$stmt->execute();
+
+		$data = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+		if (false === $data) {
+			
+			return false;
+		}
+
+		return new News($id, $data['title'], $data['author'], $data['content']); 
+	}
+
+	/**
 	* Delete a news from table
 	* @param Integer $id
 	**/
 	static public function deleteNewsById($id)
-	{
-		/* CORRECTION :
-		* - Vérifier l'existence de la News au préalable 
-		*/
-		$stmt = self::getDatabase()->prepare('DELETE FROM news WHERE id = :id');
-
-		$stmt->bindValue(':id', $id, \PDO::PARAM_INT);
-		
-		$stmt->execute();
+	{	
+		if(self::findNewsById($id) instanceof News) {
+			$stmt = self::getDatabase()->prepare('DELETE FROM news WHERE id = :id');
+			$stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+			$stmt->execute();
+		} else {
+			throw new \Exception("Error News unexistent");
+		}
 	}
 }

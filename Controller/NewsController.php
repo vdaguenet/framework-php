@@ -21,7 +21,13 @@ class NewsController extends Controller
 	**/
 	public function index(Request $request)
 	{
-		return $this->render('News/index');
+		$newsList = NewsDao::listAllNews();
+
+		if (isset($newsList) && empty($newsList)) {
+			return $this->render('News/index');
+		}
+
+		header('Location: ?/News/newsList');
 	}
 
 	/**
@@ -31,12 +37,13 @@ class NewsController extends Controller
 	public function newsList(Request $request)
 	{
 		$newsList = NewsDao::listAllNews();
-		$msg = '';
-
+		$msg = null;
+		
 		if($request->isMethod('POST')) {
 			// traitement si on est en POST
 			NewsDao::deleteNewsById($request->get('id'));
-			$msg = 'News supprimée. Le changement sera visible prochainement.';
+			$newsList = NewsDao::listAllNews();
+			$msg = 'News deleted.';
 		}
 
 		return $this->render('News/newsList', array(
