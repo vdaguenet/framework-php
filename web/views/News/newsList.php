@@ -1,5 +1,4 @@
 <h1>Liste des news</h1>
-
 <h3><?php echo $msg; ?></h3>
 
 <?php foreach ($newsList as $news) : ?>
