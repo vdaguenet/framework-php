@@ -22,15 +22,19 @@ class UserController extends Controller
 	public function index(Request $request)
 	{
 		if (null != $request->getUser()) {
-      		$name = $request->getUser()->getUsername();
+      		$user = $request->getUser();
+
+      		return $this->render('User/index', array(
+				'user' => $user
+			));
     	}
    		else {
-      		$name = 'Anonymous';
-    	}
+      		$error = 'You have to be logged first.';
 
-		return $this->render('User/index', array(
-				'name' => $name
+      		return $this->render('User/login', array(
+				'error' => $error
 			));
+    	}
 	}
 
 	/**
