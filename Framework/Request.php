@@ -3,6 +3,7 @@
 namespace Framework;
 
 use Model\User;
+use Framework\Utils\Upload;
 use Dao\UserDao;
 
 /**
@@ -30,6 +31,9 @@ class Request
 		if (isset($_GET[$parameterName]) ) {
 			return $_GET[$parameterName];
 		}
+		if (isset($_FILES[$parameterName]) ) {
+			return Upload::upload($_FILES[$parameterName]);
+		}
 		
 		return $default;
 	}
@@ -48,7 +52,7 @@ class Request
 
 	public function disconnectUser()
 	{
-		unset($_SESSION['user']);
+		unset($_SESSION['current_user']);
 		$this->user = null;
 	}
 
