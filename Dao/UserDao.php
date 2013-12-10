@@ -41,6 +41,8 @@ class UserDao extends Dao
 	**/
 	static public function update(User $user)
 	{
+		/* Vérifier l'existence de l'utilisateur */
+
 		$modifiedColumns = $user->getModifiedColumns();
 		$query = 'UPDATE user ';
 		$parameters = array();
