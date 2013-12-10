@@ -9,13 +9,15 @@ class User
 	private $username;
 	private $password;
 	private $email;
+	private $avatar;
 	private $gender;
 
-	public function __construct($username, $password, $email, $gender = 'NA')
+	public function __construct($username, $password, $email, $avatar, $gender = 'NA')
 	{
 		$this->username = $username;
 		$this->password = $password;
 		$this->email = $email;
+		$this->setAvatar($avatar);
 		$this->setGender($gender);
 	}
 
@@ -44,6 +46,20 @@ class User
 		$this->email = $email;
 
 		$this->modifiedColumns[] = 'email';
+	}
+
+	public function getAvatar()
+	{
+		return $this->avatar;
+	}
+
+	public function setAvatar($avatar)
+	{
+		if ('' != $avatar) {
+			$this->avatar = $avatar;
+		} else {
+			$this->avatar = 'default.png';
+		}
 	}
 
 	public function getGender()

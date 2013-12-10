@@ -17,7 +17,7 @@ class UserDao extends Dao
 		if (self::findOneByUsername($user->getUsername())) {
 			return false;
 		}
-		$stmt = self::getDatabase()->prepare('INSERT INTO user(username, email, password, gender) VALUES (:username, :email, :password, :gender)'); // stmt = statement
+		$stmt = self::getDatabase()->prepare('INSERT INTO user(username, email, password, gender, avatar) VALUES (:username, :email, :password, :gender, :avatar)'); // stmt = statement
 		/*$stmt->execute(array(
 				'username' => $user->getUsername(),
 				'email' => $user->getEmail(),
@@ -30,6 +30,7 @@ class UserDao extends Dao
 		$stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
 		$stmt->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
 		$stmt->bindValue(':gender', $user->getGender(), \PDO::PARAM_STR);
+		$stmt->bindValue(':avatar', $user->getAvatar(), \PDO::PARAM_STR);
 
 		$stmt->execute();
 
@@ -67,7 +68,7 @@ class UserDao extends Dao
 	static public function findOneByUsername($username)
 	{
 		$stmt = self::getDatabase()->prepare('
-			SELECT username, email, password, gender 
+			SELECT username, email, password, gender, avatar 
 			FROM user 
 			WHERE username = :username'
 		);
@@ -83,7 +84,7 @@ class UserDao extends Dao
 			return false;
 		}
 		
-		return new User($data['username'], $data['password'], $data['email'], $data['gender']);
+		return new User($data['username'], $data['password'], $data['email'], $data['avatar'], $data['gender']);
 
 	}
 }
