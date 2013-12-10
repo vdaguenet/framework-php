@@ -49,7 +49,6 @@ class UserController extends Controller
 					$error = "Username already used.";
 				}
 				else {
-
 					UserDao::save(new User($request->get('username'), Crypt::encrypt($request->get('password')), $request->get('email'), $request->get('avatar'), $request->get('gender')));
 
 					return $this->redirect('User', 'login');
