@@ -38,7 +38,7 @@ class NewsController extends Controller
 	{
 		$newsList = NewsDao::listAllNews();
 		$msg = null;
-		
+
 		if($request->isMethod('POST')) {
 			// traitement si on est en POST
 			NewsDao::deleteNewsById($request->get('id'));
@@ -60,14 +60,19 @@ class NewsController extends Controller
 	{
 		if($request->getUser() instanceof User) {
 			// Utilisateur connecté
+			$msg = null;
+
 			if($request->isMethod('POST')) {
 				// traitement si on est en POST
 				$news = new News(0, $request->get('title'), $request->getUser()->getUsername(), $request->get('content'));
 
 				NewsDao::save($news);
+				$msg = 'News added !';
 			}
 
-			return $this->render('News/add');
+			return $this->render('News/add', array(
+					'msg' => $msg
+				));
 		}
 
 		header('Location: ?/User/login');
