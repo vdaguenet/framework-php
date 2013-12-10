@@ -33,11 +33,17 @@
         <label for="gender" class="col-sm-2 control-label">Gender</label>
         <div class="col-sm-10">
           <select id="gender" name="gender" class="form-control">
-            <option>Pick it</option>
-            <option value="M">Homme</option>
-            <option value="F">Femme</option>
+            <option value="M">Man</option>
+            <option value="F">Women</option>
             <option value="NA">NA</option>
           </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="avatar" class="col-sm-2 control-label">Avatar</label>
+        <div class="col-sm-10">
+          <input type="file" class="form-control" name="avatar" id="avatar">
         </div>
       </div>
       

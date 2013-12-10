@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Avatar</label>
 				<div class="col-sm-10">
-					<p class="form-control-static"><img src="" class="img-circle"></p>
+					<p class="form-control-static"><img src="<?php echo __DIR__ . '/web/assets/img/avatars/' . $user->getAvatar(); ?>" class="img-circle"></p>
 				</div>
 			</div>
 		</form>
