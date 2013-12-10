@@ -9,7 +9,7 @@
       </div>
     <?php endif; ?>
 
-    <form method="POST" class="form-horizontal">
+    <form method="POST" class="form-horizontal" enctype="multipart/form-data">
       <div class="form-group">
         <label for="username" class="col-sm-2 control-label">Login</label>
         <div class="col-sm-10">

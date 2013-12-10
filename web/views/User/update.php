@@ -14,7 +14,7 @@
 			<p>Votre e-mail actuel : <?php echo $user->getEmail(); ?></p>
 		</div>
 
-		<form method="POST" class="form-horizontal">
+		<form method="POST" class="form-horizontal" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="email" class="col-sm-2 control-label">E-mail</label>
 				<div class="col-sm-10">
