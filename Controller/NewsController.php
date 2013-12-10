@@ -27,7 +27,7 @@ class NewsController extends Controller
 			return $this->render('News/index');
 		}
 
-		header('Location: ?/News/newsList');
+		return $this->redirect('News', 'newsList');
 	}
 
 	/**
@@ -75,6 +75,6 @@ class NewsController extends Controller
 				));
 		}
 
-		header('Location: ?/User/login');
+		return $this->redirect('User', 'login');
 	}
 }

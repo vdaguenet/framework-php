@@ -28,13 +28,9 @@ class UserController extends Controller
 				'user' => $user
 			));
     	}
-   		else {
-      		$error = 'You have to be logged first.';
 
-      		return $this->render('User/login', array(
-				'error' => $error
-			));
-    	}
+		return $this->redirect('User', 'login');
+    	
 	}
 
 	/**
@@ -50,15 +46,16 @@ class UserController extends Controller
 	      	if ('' != $request->get('username', '') && '' != $request->get('password', '') && '' != $request->get('email', '')) {
 				$user = UserDao::findOneByUsername($request->get('username'));
 				if (null != $user) {
-					$error = "Le nom d'utilisateur est déjà réservé";
+					$error = "Username already used.";
 				}
 				else {
-					UserDao::save(new User($request->get('username'), Crypt::encrypt($request->get('password')), $request->get('email'), $request->get('gender')));
+
+					UserDao::save(new User($request->get('username'), Crypt::encrypt($request->get('password')), $request->get('email'), $request->get('avatar'), $request->get('gender')));
 
 					return $this->redirect('User', 'login');
 				}
 			} else {
-				$error = 'Il manque des données !';
+				$error = 'Data missing !';
 			}
 	    }
 
@@ -85,14 +82,14 @@ class UserController extends Controller
 				$user = UserDao::findOneByUsername($request->get('username'));
 
 				if (null == $user) {
-					$error = 'La combinaison identifiant/mot de passe est incorrecte';
+					$error = 'Wrong login or password.';
 				} else {
 					if ($user->getPassword() == Crypt::encrypt($request->get('password'))) {
 						$request->setUser($user);
 
 						return $this->redirect('User');
 					} else {
-						$error = 'La combinaison identifiant/mot de passe est incorrecte';
+						$error = 'Wrong login or password.';
 					}
 				}
 			}
@@ -124,7 +121,7 @@ class UserController extends Controller
 		$error = null;
 		if ($request->isMethod('POST')) {
 			if ('' == $request->get('email', '')) {
-				$error = 'Il manque des données !';
+				$error = 'Data missing !';
 			} else {
 				$request->getUser()->setEmail($request->get('email'));
 				UserDao::update($request->getUser());
