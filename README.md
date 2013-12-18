@@ -5,7 +5,8 @@ A simple PHP Framework based on MVC model and using layout system for displaying
 
 Project started during formation with [@Divi](https://github.com/Divi).
 
-# Change logs:
+Change logs:
+------------
 - TODO :
 	- Add an ORM (Propel for example).
 
