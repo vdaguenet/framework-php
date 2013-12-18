@@ -19,28 +19,36 @@
         <script src="./web/assets/js/vendor/modernizr-2.6.2.min.js"></script>
         
     </head>
-    <body>
+    <body class="container">
         
             <!--[if lt IE 7]>
                 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
             <![endif]-->
 
             <!-- Add your site or application content here -->
-            <nav class="navbar navbar-default navbar-static-top" role="navigation">
-                <ul class="nav nav-pills container">
-                    <li class="active"><a href="?/Default">Home</a></li>
-                    <li><a href="?/News/index">News</a></li>
-                    <li><a href="?/User/index">Profile</a></li>
-                </ul>
-            </nav>
             <div class="page-header">
                 <h1 class="container">Personal PHP Framework<br>
                     <small>by Valentin DAGUENET</small>
                 </h1>
             </div>
-        <div class="container">
-            <?php include($viewName.'.php'); ?>
-        </div> 
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="list-group">
+                        <nav>
+                            <a href="?/Default" class="list-group-item">Home</a>
+                            <a href="?/News/index" class="list-group-item">News</a>
+                            <a href="?/User/index" class="list-group-item">Profile</a>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div>
+                        <?php include($viewName.'.php'); ?>
+                    </div> 
+                </div>
+            </div>
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="./web/assets/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
