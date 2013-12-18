@@ -1,5 +1,5 @@
-<h1>Index des news</h1>
+<h2>News</h2>
 
-<p>
-	<a href="?/News/newsList">Voir les news</a> || <a href="?/News/add">Ajouter une news</a>
-</p>
+<p>There is no news for instant.</p>
+<p>Feel free to write one ! ;)</p>
+<a href="?/News/add" class="btn btn-primary">Write a news</a>
