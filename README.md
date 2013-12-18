@@ -1,19 +1,26 @@
-# Personal PHP Framework
-Project started during formation with [Sylvain Lorinet](https://github.com/Divi) and continued personaly.
+Personal PHP Framework
+======================
 
-## Formation version
-- Bases of the framework
-- Simple MVC application for example.
+A simple PHP Framework based on MVC model and using layout system for displaying views.
 
-## Personal version
-- Add URL rewriting
-- Use HTML5 Boilerplate for the views
-- News :
--- Edit (TODO)
--- Add category (TODO)
--- Add image (TODO)
-- User :
--- Add an avatar (TODO)
--- Update (TODO)
-- Add an ORM (TODO)
-- Complete the application (TODO)
+Project started during formation with [@Divi](https://github.com/Divi).
+
+# Change logs:
+- TODO :
+	- Imrpove URL rewriting: change `?/User/profile` to `/User/profile`.
+	- Add an ORM
+
+- v1.0:
+	- Begining of URL rewriting: change `?controller=User&page=profile` to `?/User/profile`.
+	- Add an avatar for users.
+	- Complete user profile update.
+	- Implement an util for uploading images.
+	- Change views system for using a layout.
+	- Use [HTML 5 Boilerplate](http://html5boilerplate.com/) and [Bootstrap](http://getbootstrap.com/).
+
+- v0.5:
+	- Complete the application as a blog with news.
+
+- v0 (during formation):
+	- Implement users gestion using MVC model.
+	- Bases of the framework.
