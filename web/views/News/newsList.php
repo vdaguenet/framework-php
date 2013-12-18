@@ -18,7 +18,14 @@
 			<div class="panel-body">
 				<p><?php echo $news->getContent(); ?></p>	
 			</div>
-			<input type="submit" class="btn btn-link" value="Delete" />
+			<?php
+				if(isset($_SESSION['current_user']) && $_SESSION['current_user'] === $news->getAuthor()) {
+			?>
+					<input type="submit" class="btn btn-link" value="Delete" />
+			<?php
+				}
+			?>
+			
 		</form>
 	</div>
 
