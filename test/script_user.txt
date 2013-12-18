@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `username` varchar(30) NOT NULL DEFAULT '',
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `gender` varchar(1) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
