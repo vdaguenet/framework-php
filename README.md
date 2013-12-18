@@ -7,8 +7,7 @@ Project started during formation with [@Divi](https://github.com/Divi).
 
 # Change logs:
 - TODO :
-	- Imrpove URL rewriting: change `?/User/profile` to `/User/profile`.
-	- Add an ORM
+	- Add an ORM (Propel for example).
 
 - v1.0:
 	- Begining of URL rewriting: change `?controller=User&page=profile` to `?/User/profile`.
@@ -18,7 +17,7 @@ Project started during formation with [@Divi](https://github.com/Divi).
 	- Change views system for using a layout.
 	- Use [HTML 5 Boilerplate](http://html5boilerplate.com/) and [Bootstrap](http://getbootstrap.com/).
 
-- v0.5:
+- v0.1:
 	- Complete the application as a blog with news.
 
 - v0 (during formation):
