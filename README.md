@@ -1,9 +1,15 @@
 Personal PHP Framework
 ======================
 
+Project started during formation with [@Divi](https://github.com/Divi).
 A simple PHP Framework based on MVC model and using layout system for displaying views.
 
-Project started during formation with [@Divi](https://github.com/Divi).
+Get started :
+-------------
+- Create a database with the name you want.
+- Set up your config in config/config.yml.
+- Import scripts in folder test/
+- Enjoy !! ;)
 
 Change logs:
 ------------
