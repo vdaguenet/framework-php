@@ -25,9 +25,9 @@ class DatabaseFactory
 				$driver = new Driver\DatabaseMySQLDriver();
 				break;
 
-			/*case 'PostGreSQL':
-				$driver = new Driver\DatabasePostGreSQLDriver();
-				break;*/
+			case 'postgresql':
+				$driver = new Driver\DatabasePostgreSQLDriver();
+				break;
 			
 			default:
 				throw new \Exception("Error database driver");
