@@ -2,16 +2,22 @@
 
 namespace Framework\Utils;
 
-define("UPLOAD_DIR", "./web/assets/img/avatars/");
 /**
-* 
+* Set the destination directory here
+*/
+define("UPLOAD_DIR", "./web/assets/img/avatars/");
+
+/**
+* Uploader for image files.
 */
 class Upload 
 {
-	
-
+	/**
+	* public static function upload
+	* @param {String} $file
+	* @return {String} $name
+	*/
 	public static function upload($file) {
-
 		if (!isset($file["name"]) || $file["error"] !== UPLOAD_ERR_OK || !self::verifyFileType($file["tmp_name"])){
 			
 			return false;
@@ -33,6 +39,11 @@ class Upload
 		return $name;
 	}
 
+	/**
+	* public static function setFileName
+	* @param {String} $file
+	* @return {String} $name
+	*/
 	public static function setFileName($file) {
 		// ensure a safe filename
 		$name = strtr($file,'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ','AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy'); 
@@ -48,10 +59,14 @@ class Upload
 		return $name;
 	}
 
+	/**
+	* public static function verifyFileType
+	* @param {String} $file
+	* @return {Boolean}
+	*/
 	public static function verifyFileType($file) {
 		// verify the file is a GIF, JPEG, or PNG
-
-		$fileType = exif_imagetype($file); // $file["tmp_name"]
+		$fileType = exif_imagetype($file);
 		$allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
 
 		if (!in_array($fileType, $allowed)) {

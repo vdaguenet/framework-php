@@ -90,6 +90,10 @@ class User
 		return $this->modifiedColumns;
 	}
 
+	/**
+	* public function flushColumns
+	* Redefined modified columns
+	*/
 	public function flushColumns()
 	{
 		$this->modifiedColumns = array();

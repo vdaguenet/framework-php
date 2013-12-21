@@ -8,9 +8,10 @@ use Framework\Request;
 class DefaultController extends Controller
 {
 	/**
-	* @param Request $request
-	* @return view default.php
-	**/
+	* public function index
+	* @param {Request} 
+	* @return {View} default view
+	*/
 	public function index(Request $request)
 	{
 		return $this->render('default');

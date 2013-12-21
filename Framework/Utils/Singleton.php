@@ -2,12 +2,12 @@
 
 namespace Framework\Utils;
 
-trait Singleton { // Un trait est comme un fichier que l'on inclue dans d'autre classes. Evite la redondance de code.
+trait Singleton {
 	private static $instance;
 
 	final public function __construct() 
-	{ // Final empêche une classe fille de surcharger cette méthode
-
+	{ 
+		// Empty constructor to prevent over definition.
 	}
 
 	final public function __clone() 
@@ -15,6 +15,10 @@ trait Singleton { // Un trait est comme un fichier que l'on inclue dans d'autre 
 		throw new \Exception('Error : cannot clone singleton object');
 	}
 
+	/**
+	* The definition of singleton design pattern :
+	* 	can be instancied once. Return the instance otherwise. 
+	*/
 	public static function getInstance() 
 	{
 		if (!isset(self::$instance)) {

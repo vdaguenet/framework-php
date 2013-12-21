@@ -5,7 +5,7 @@ namespace Framework;
 /**
 * Abstract class Controller
 * Every controllers will implement this class
-**/
+*/
 abstract class Controller
 {
 	private $router;
@@ -18,7 +18,8 @@ abstract class Controller
 	public abstract function index(Request $request);
 
 	/**
-	* @param view path
+	* public function render
+	* @param {String, array} view path, parameters
 	* @return buffer content
 	*/
 	public function render($viewName, $parameters = array()) 
@@ -32,7 +33,6 @@ abstract class Controller
 		}
 		
 		// Include the view
-		//include(__DIR__ . '/../views/' . $viewName .'.php');
 		include(__DIR__ . '/../web/views/layout.php');
 
 		// Stock buffer content before cleaning
@@ -43,21 +43,9 @@ abstract class Controller
 	}
 
 	/**
-	* @param $controller Controller to call
-	* @param $page Page to call. Index if the parameter is not set
+	* public function redirect
+	* @param {String, String} Controller and page (optional) to call
 	*/
-	/*public function redirect($controller, $page = 'index')
-	{
-		$baseUrl = $this->router->getBaseUrl();
-
-		header('Location: ' . $baseUrl . '?' . http_build_query(array(
-			'controller' => $controller,
-			'page' => $page
-		)));
-
-		die;
-	}*/
-
 	public function redirect($controller, $page = 'index')
 	{
 		$baseUrl = $this->router->getBaseUrl();

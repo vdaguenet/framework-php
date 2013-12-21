@@ -8,36 +8,31 @@ use Framework\Utils\Crypt;
 use Model\User;
 use Dao\UserDao;
 
-/**
-* Classe UserController
-* Implémente la méthode abstraite index.
-**/
-
 class UserController extends Controller
 {
 	/**
-	* @param Request $request
-	* @return view User/index.php with array of parameters
-	**/
+	* public function index
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function index(Request $request)
 	{
 		if (null != $request->getUser()) {
-      		$user = $request->getUser();
+    	$user = $request->getUser();
 
-      		return $this->render('User/index', array(
+    	return $this->render('User/index', array(
 				'user' => $user
 			));
-    	}
+    }
 
 		return $this->redirect('User', 'login');
-    	
 	}
 
 	/**
-	* Call method save if the form is completed and submited 
-	* @param Request $request
-	* @return view User/register.php
-	**/
+	* public function register
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function register(Request $request)
 	{
 		$error = null;
@@ -56,7 +51,7 @@ class UserController extends Controller
 			} else {
 				$error = 'Data missing !';
 			}
-	    }
+	  }
 
 		return $this->render('User/register', array(
 				'error' => $error
@@ -64,17 +59,17 @@ class UserController extends Controller
 	}
 
 	/**
-	* @param Request $request
-	* @return view User/login.php if user is not logged or if the couple login / password is wrong.
-	* Return view User/index.php with pseudo as parameter otherwise.
-	**/
+	* public function login
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function login(Request $request)
 	{
 		if (null != $request->getUser()) {
-      		return $this->redirect('User');
-    	}
+    	return $this->redirect('User');
+    }
     
-   		$error = null;
+   	$error = null;
     
 		if ($request->isMethod('POST')) {
 			if (false !== $request->get('username', false) && false !== $request->get('password', false)) {
@@ -100,10 +95,10 @@ class UserController extends Controller
 	}
 
 	/**
-	* Call disconnectUser method
-	* @param Request $request
-	* @return view User/index.php
-	**/
+	* public function disconnect 
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function disconnect(Request $request)
 	{
 		$request->disconnectUser();
@@ -111,6 +106,11 @@ class UserController extends Controller
 		return $this->index($request);
 	}
 
+	/**
+	* public function update
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function update(Request $request)
 	{
 		if (null == $request->getUser()) {
@@ -121,16 +121,22 @@ class UserController extends Controller
 		if ($request->isMethod('POST')) {
 			if ('' === $request->get('password', '') && '' === $request->get('email', '')) {
 				$error = 'Data missing !';
-			} else {
-				$request->getUser()->flushColumns();
-				$request->getUser()->setEmail($request->get('email'));
-				$request->getUser()->setPassword(Crypt::encrypt($request->get('password')));
-				if ($request->getUser()->getAvatar() !== $request->get('avatar')) {
-					$request->getUser()->setAvatar($request->get('avatar'));
-				}
-				
-				UserDao::update($request->getUser());
+
+				return $this->render('User/update', array(
+					'error' => $error,
+					'user'  => $request->getUser()
+				));
 			}
+			$request->getUser()->flushColumns();
+			$request->getUser()->setEmail($request->get('email'));
+			$request->getUser()->setPassword(Crypt::encrypt($request->get('password')));
+			if ($request->getUser()->getAvatar() !== $request->get('avatar')) {
+				$request->getUser()->setAvatar($request->get('avatar'));
+			}
+			
+			UserDao::update($request->getUser());
+
+			return $this->redirect('User');
 		}
 
 		return $this->render('User/update', array(

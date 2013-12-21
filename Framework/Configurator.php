@@ -21,7 +21,10 @@ class Configurator
 	}
 
 	/**
+	* public function get
 	* Get configuration attribute from YAML file
+	* @param {String} $configuration
+	* @return {String} configuration value
 	*/
 	public function get($configuration)
 	{

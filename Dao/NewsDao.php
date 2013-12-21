@@ -5,17 +5,13 @@ namespace Dao;
 use Model\News;
 use Framework\Dao;
 
-/**
-* Classe NewsDao. 
-* DAO pour la table et les objets news. Hérite de la classe Dao
-**/
-
 class NewsDao extends Dao
 {
 	/**
-	* Insert a news object into table news.
-	* @param News $news
-	**/
+	* static public function save
+	* Save a news in database
+	* @param {News} $news 
+	*/
 	static public function save( News $news )
 	{
 		$stmt = self::getDatabase()->prepare('INSERT INTO news(title, author, content) VALUES (:title, :author, :content)');
@@ -28,8 +24,9 @@ class NewsDao extends Dao
 	}
 
 	/**
-	* @return array of news object.
-	**/
+	* static public function listAllNews
+	* @return {Array}
+	*/
 	static public function listAllNews()
 	{
 
@@ -52,8 +49,10 @@ class NewsDao extends Dao
 	}
 
 	/**
-	* @return array of news object.
-	**/
+	* static public function findOneById
+	* @param {Integer} $id
+	* @return {News}
+	*/
 	static public function findNewsById($id)
 	{
 		$stmt = self::getDatabase()->prepare('
@@ -75,9 +74,10 @@ class NewsDao extends Dao
 	}
 
 	/**
-	* Delete a news from table
-	* @param Integer $id
-	**/
+	* static public function deleteNewsById
+	* @param {Integer} $id 
+	* @return {}
+	*/
 	static public function deleteNewsById($id)
 	{	
 		if(self::findNewsById($id) instanceof News) {

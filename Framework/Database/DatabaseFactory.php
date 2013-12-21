@@ -5,9 +5,13 @@ namespace Framework\Database;
 use Framework\Configurator;
 use Framework\Utils\Singleton;
 
+/**
+* Factory for database drivers gestion.
+*/
 class DatabaseFactory
 {
 	use Singleton;
+	
 	/**
 	* Create DatabaseDriver in depending on driver parameter in config/config.yml
 	* @return DatabaseDriver
@@ -17,7 +21,7 @@ class DatabaseFactory
 		$databaseConfigurations = Configurator::getInstance()->get('database', false);
 
 		if (false === $databaseConfigurations) {
-			throw new \Exception("Il manque des configurations pour la base de données");
+			throw new \Exception("Database configuration missing.");
 		}
 
 		switch ($databaseConfigurations['driver']) {
@@ -30,7 +34,7 @@ class DatabaseFactory
 				break;
 			
 			default:
-				throw new \Exception("Error database driver");
+				throw new \Exception("Error database driver.");
 		}
 
 		return $driver->create($databaseConfigurations);

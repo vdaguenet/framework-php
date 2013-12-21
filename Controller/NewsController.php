@@ -8,17 +8,13 @@ use Model\News;
 use Model\User;
 use Dao\NewsDao;
 
-/**
-* Classe NewsController
-* Implémente la méthode abstraite index.
-**/
-
 class NewsController extends Controller
 {
 	/**
-	* @param Request $request
-	* @return view News/index.php
-	**/
+	* public function index
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function index(Request $request)
 	{
 		$newsList = NewsDao::listAllNews();
@@ -31,16 +27,16 @@ class NewsController extends Controller
 	}
 
 	/**
-	* @param Request $request
-	* @return view News/newsList.php with an array of object News
-	**/
+	* public function newsList
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function newsList(Request $request)
 	{
 		$newsList = NewsDao::listAllNews();
 		$msg = null;
 
 		if($request->isMethod('POST')) {
-			// traitement si on est en POST
 			NewsDao::deleteNewsById($request->get('id'));
 			$newsList = NewsDao::listAllNews();
 			$msg = 'News deleted.';
@@ -53,19 +49,17 @@ class NewsController extends Controller
 	}
 
 	/**
-	* @param Request $request
-	* @return view News/add.php if the user is connected, login page otherwise.
-	**/
+	* public function add
+	* @param {Request} 
+	* @return {View}
+	*/
 	public function add(Request $request)
 	{
 		if($request->getUser() instanceof User) {
-			// Utilisateur connecté
 			$msg = null;
 
 			if($request->isMethod('POST')) {
-				// traitement si on est en POST
 				$news = new News(0, $request->get('title'), $request->getUser()->getUsername(), $request->get('content'));
-
 				NewsDao::save($news);
 				$msg = 'News added !';
 			}

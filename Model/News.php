@@ -4,9 +4,6 @@ namespace Model;
 
 use Framework\Request;
 
-/**
-* Classe News.
-**/
 class News
 {
 	private $id;
