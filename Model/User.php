@@ -15,8 +15,8 @@ class User
 	public function __construct($username, $password, $email, $avatar, $gender = 'NA')
 	{
 		$this->username = $username;
-		$this->password = $password;
-		$this->email = $email;
+		$this->setPassword($password);
+		$this->setEmail($email);
 		$this->setAvatar($avatar);
 		$this->setGender($gender);
 	}
@@ -34,6 +34,12 @@ class User
 	public function getPassword()
 	{
 		return $this->password;
+	}
+
+	public function setPassword($password)
+	{
+		$this->password = $password;
+		$this->modifiedColumns[] = 'password';
 	}
 
 	public function getEmail()
@@ -57,6 +63,7 @@ class User
 	{
 		if ('' != $avatar) {
 			$this->avatar = $avatar;
+			$this->modifiedColumns[] = 'avatar';
 		} else {
 			$this->avatar = 'default.png';
 		}

@@ -119,10 +119,16 @@ class UserController extends Controller
 
 		$error = null;
 		if ($request->isMethod('POST')) {
-			if ('' == $request->get('email', '')) {
+			if ('' === $request->get('password', '') && '' === $request->get('email', '')) {
 				$error = 'Data missing !';
 			} else {
+				$request->getUser()->flushColumns();
 				$request->getUser()->setEmail($request->get('email'));
+				$request->getUser()->setPassword(Crypt::encrypt($request->get('password')));
+				if ($request->getUser()->getAvatar() !== $request->get('avatar')) {
+					$request->getUser()->setAvatar($request->get('avatar'));
+				}
+				
 				UserDao::update($request->getUser());
 			}
 		}

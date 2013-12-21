@@ -42,22 +42,33 @@ class UserDao extends Dao
 	**/
 	static public function update(User $user)
 	{
-		/* Vérifier l'existence de l'utilisateur */
+		if (self::findOneByUsername($user->getUsername())) {
+			$modifiedColumns = $user->getModifiedColumns();
+			$query = 'UPDATE user SET';
+			$parameters = array();
 
-		$modifiedColumns = $user->getModifiedColumns();
-		$query = 'UPDATE user ';
-		$parameters = array();
+			foreach ($modifiedColumns as $column) {
+				$query .= ' ' . $column . ' = ?, ';
+				$methodName = 'get' . $column;
+				$parameters[] = $user->$methodName();
+			}
+			$query = substr($query, 0, -2);
+			$query .= ' WHERE username = \'' . $user->getUsername() .'\'';
+			
+			var_dump($query);
 
-		foreach ($modifiedColumns as $column) {
-			$query .= 'SET ' . $column . ' = ?, ';
-			$methodName = 'get' . $column;
-			$parameters[] = $user->$methodName();
+			$stmt = self::getDatabase()->prepare($query);
+
+			var_dump($parameters);
+			$stmt->execute($parameters);
+		} else {
+			$error = 'Unknown user';
+			return $this->render('User/update', array(
+				'error' => $error
+			));
 		}
 
-		$query = substr($query, 0, -2);
-
-		$stmt = self::getDatabase()->prepare($query);
-		$stmt->execute($parameters);
+		
 	}
 
 	/**
