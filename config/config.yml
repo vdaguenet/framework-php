@@ -1,6 +1,6 @@
 database:
   driver: dbDriver
-  host: dbHoset
+  host: dbHost
   port: dbPort
   user: dbUser
   password: dbUserPassword
